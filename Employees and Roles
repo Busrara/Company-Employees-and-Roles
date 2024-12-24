@@ -1,0 +1,55 @@
+class EmployeeBot:
+  def __init__(self):
+    self.employee_data= {}
+
+  def add_employee(self, name, role):
+    self.employee_data[name.lower()]= role.lower()
+
+  def get_role(self, name):
+    name= name.lower()
+    if name in self.employee_data:
+      return f"{name.title()} is a  {self.employee_data[name].title()}."
+  
+  def get_employees_by_role(self, role):
+    role= role.lower()
+    employees= [name.title() for name, emp_role in self.employee_data.items() if emp_role == role]
+    if employees:
+      return f"Employees with the role '{role.title()}': {', '.join(employees)}."
+    else:
+      return "No employees found."
+
+# Start chatbot
+
+bot= EmployeeBot()
+
+# Add workers
+
+bot.add_employee("Alice", "Software Engineer")
+bot.add_employee("Bob", "Project Manager")
+bot.add_employee("Charlie", "Designer")
+
+# Test the chatbot
+
+while True:
+  print("\nOptions:")
+  print("1. Get role by name")
+  print("2. Get employee by role")
+  print("3. Exit")
+
+  choice= input("Enter the choice (1/2/3): ")
+
+  if choice=="1":
+    name=input("Enter the name of the employees: ")
+    print(bot.get_role(name))
+
+  elif choice=="2":
+    role=input("Enter the role of the employee: ")
+    print(bot.get_employees_by_role(role))
+    
+  elif choice=="3":
+    print("Goodbye!")
+    break
+
+  else:
+    print("It is invalid.")
+  
